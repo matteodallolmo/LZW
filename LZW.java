@@ -53,9 +53,7 @@ public class LZW {
         FileReader reader = new FileReader(file);
 
         BufferedReader br = new BufferedReader(reader);
-        FileOutputStream fos = new FileOutputStream(newFilename);
-        DataOutputStream dos = new DataOutputStream(fos);
-
+        
         StringBuilder sb = new StringBuilder();
 
         int currInt = br.read();
