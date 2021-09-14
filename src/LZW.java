@@ -4,14 +4,6 @@ import java.io.*;
 import java.util.*;
 
 
-
-
-
-
-
-
-
-
 public class LZW {
 
     private static final int BIT_0 = 1;
