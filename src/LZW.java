@@ -39,6 +39,8 @@ public class LZW {
         newFilename = newFileName;
         map = new HashMap<String, String>((int)Math.pow(2, binaryLength));
         binaryLength = BinaryLength;
+        
+        //filling first 255 elements in the dictionary.
         for(int i = 0; i < 256; i++)
         {
             String binString = intToBinary(i);
