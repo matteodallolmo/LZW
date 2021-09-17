@@ -1,5 +1,8 @@
 import java.io.*;
+//little change;
+
 import java.util.*;
+
 
 public class LZW {
 
@@ -36,6 +39,8 @@ public class LZW {
         newFilename = newFileName;
         map = new HashMap<String, String>((int)Math.pow(2, binaryLength));
         binaryLength = BinaryLength;
+        
+        //filling first 255 elements in the dictionary.
         for(int i = 0; i < 256; i++)
         {
             String binString = intToBinary(i);
@@ -45,7 +50,7 @@ public class LZW {
         }
     }
 
-    public void encode(String filepath) throws IOException
+    public String encode(String filepath) throws IOException
     {
         int counter = 256;
 
@@ -88,6 +93,7 @@ public class LZW {
         }
 
         writeToBinary(sb.toString());
+        return (sb.toString());
 
     }
     
@@ -109,6 +115,7 @@ public class LZW {
         
         FileOutputStream fos = new FileOutputStream(newFilename);
         fos.write(l_raw);
+        fos.close();
     }
 
     public static String intToBinary(int num)
@@ -122,10 +129,5 @@ public class LZW {
         return binString;
     }
 
-    public static void main(String[] args) throws IOException {
-        // TODO Auto-generated method stub
-        LZW lzw = new LZW(9, "output.bin");
 
-        lzw.encode("lzw-file3.txt");
-    }
 }
