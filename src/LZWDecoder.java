@@ -61,6 +61,8 @@ public class LZWDecoder {
 		int nextDecimal= 0;
 		String nextString= "";
 		
+		String lastSymbolInDict = "";
+		
 		
 		for (int x = 0; x< binString.length()/bitNum; x++)
 		{
@@ -72,11 +74,13 @@ public class LZWDecoder {
 			if (nextString!= null)
 			{
 				dict.put(256+x, currString+ nextString.substring(0,1));
+				lastSymbolInDict = currString+ nextString.substring(0,1);
 
 			}
 			else
 			{
-				
+				dict.put(256+x, lastSymbolInDict + lastSymbolInDict.substring(0,1));
+				lastSymbolInDict = lastSymbolInDict + lastSymbolInDict.substring(0,1);
 			}
 			
 			finalOutput += nextString;
