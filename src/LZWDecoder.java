@@ -14,13 +14,15 @@ public class LZWDecoder {
 	private byte [] byteArray;
 	private String finalOutput;
 	
-	public LZWDecoder(File binFile, int bitNum, String outputFileName) throws IOException
+	public LZWDecoder(String binFileName, int bitNum, String outputFileName) throws IOException
 	{
 		this.dict = new HashMap <Integer, String>();
 		this.bitNum = bitNum;
 		this.binString = "";
 		this.finalOutput = "";
 		
+		
+		File binFile = new File (binFileName);
 		readBinFile(binFile);
 		decode();
 		writeToTxt(outputFileName);
@@ -36,6 +38,7 @@ public class LZWDecoder {
 		{
 			binString+=currInt;
 		}
+		is.close();
 	}
 	
 

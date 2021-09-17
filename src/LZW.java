@@ -114,6 +114,7 @@ public class LZW {
         
         FileOutputStream fos = new FileOutputStream(newFilename);
         fos.write(l_raw);
+        fos.close();
     }
 
     public static String intToBinary(int num)
@@ -127,10 +128,5 @@ public class LZW {
         return binString;
     }
 
-    public static void main(String[] args) throws IOException {
-        // TODO Auto-generated method stub
-        LZW lzw = new LZW(9, "output.bin");
 
-        lzw.encode("lzw-file3.txt");
-    }
 }
