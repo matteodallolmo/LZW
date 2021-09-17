@@ -50,7 +50,7 @@ public class LZW {
         }
     }
 
-    public void encode(String filepath) throws IOException
+    public String encode(String filepath) throws IOException
     {
         int counter = 256;
 
@@ -93,6 +93,7 @@ public class LZW {
         }
 
         writeToBinary(sb.toString());
+        return (sb.toString());
 
     }
     

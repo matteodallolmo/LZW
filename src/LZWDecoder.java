@@ -14,16 +14,16 @@ public class LZWDecoder {
 	private byte [] byteArray;
 	private String finalOutput;
 	
-	public LZWDecoder(String binFileName, int bitNum, String outputFileName) throws IOException
+	public LZWDecoder(String binString, int bitNum, String outputFileName) throws IOException
 	{
 		this.dict = new HashMap <Integer, String>();
 		this.bitNum = bitNum;
-		this.binString = "";
+		this.binString = binString;
 		this.finalOutput = "";
 		
 		
-		File binFile = new File (binFileName);
-		readBinFile(binFile);
+//		File binFile = new File (binFileName);
+//		readBinFile(binFile);
 		decode();
 		writeToTxt(outputFileName);
 		
@@ -69,7 +69,15 @@ public class LZWDecoder {
 			nextDecimal = Integer.parseInt(nextBinString, 2);
 			nextString = dict.get(nextDecimal);
 			
-			dict.put(256+x, currString+ nextString.substring(0,1));
+			if (nextString!= null)
+			{
+				dict.put(256+x, currString+ nextString.substring(0,1));
+
+			}
+			else
+			{
+				
+			}
 			
 			finalOutput += nextString;
 			currString = nextString;
