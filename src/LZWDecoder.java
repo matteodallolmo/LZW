@@ -29,6 +29,7 @@ public class LZWDecoder {
 		
 	}
 	
+	//reads the binary file into a string. not working, so I've bypassed this method for now and just input a binary string into the constructor.
 	public void readBinFile(File binFile) throws IOException
 	{
 		FileInputStream is = new FileInputStream(binFile);
@@ -75,6 +76,10 @@ public class LZWDecoder {
 			{
 				dict.put(256+x, currString+ nextString.substring(0,1));
 				lastSymbolInDict = currString+ nextString.substring(0,1);
+				finalOutput += nextString;
+				currString = nextString;
+
+
 
 			}
 			else
@@ -83,12 +88,11 @@ public class LZWDecoder {
 				lastSymbolInDict = lastSymbolInDict + lastSymbolInDict.substring(0,1);
 			}
 			
-			finalOutput += nextString;
-			currString = nextString;
 			
 		}
 	}
 	
+	//writes the 
 	public void writeToTxt(String outputFileName) throws FileNotFoundException
 	{
 		PrintWriter output = new PrintWriter(outputFileName);
