@@ -51,32 +51,31 @@ public class LZWDecoder {
 			char ch = (char)x;
 			dict.put(x, String.valueOf(ch));
 		}
-
+		String binStringCopy = binString;
 		String currBinString = binString.substring (0,bitNum);
 		binString= binString.substring(bitNum);
 		int currDecimal = Integer.parseInt(currBinString, 2);
 		String currString = dict.get(currDecimal);
-		finalOutput = currString;
+//		finalOutput = currString;
 		
 		String nextBinString = "";
 		int nextDecimal= 0;
 		String nextString= "";
 		
-		String lastSymbolInDict = "";
+//		String lastSymbolInDict = "";
 		
+		nextBinString = binString.substring(0, bitNum);
+		binString= binString.substring(bitNum);
+		nextDecimal = Integer.parseInt(nextBinString, 2);
+		nextString = dict.get(nextDecimal);
 		
-		for (int x = 0; x< binString.length()/bitNum; x++)
+		int counter = 256;
+		while (binString.length()>= bitNum)
 		{
-			nextBinString = binString.substring(0, bitNum);
-			binString= binString.substring(bitNum);
-			nextDecimal = Integer.parseInt(nextBinString, 2);
-			nextString = dict.get(nextDecimal);
-			
+
 			if (nextString!= null)
 			{
-				dict.put(256+x, currString+ nextString.substring(0,1));
-				lastSymbolInDict = currString+ nextString.substring(0,1);
-				finalOutput += nextString;
+				dict.put(counter, currString+ nextString.substring(0,1));
 				currString = nextString;
 
 
@@ -84,11 +83,23 @@ public class LZWDecoder {
 			}
 			else
 			{
-				dict.put(256+x, lastSymbolInDict + lastSymbolInDict.substring(0,1));
-				lastSymbolInDict = lastSymbolInDict + lastSymbolInDict.substring(0,1);
+				dict.put(counter, currString + currString.substring(0,1));
+				currString = currString + currString.substring(0,1);
 			}
 			
+			nextBinString = binString.substring(0, bitNum);
+			binString= binString.substring(bitNum);
+			nextDecimal = Integer.parseInt(nextBinString, 2);
+			nextString = dict.get(nextDecimal);
 			
+			counter++;
+		}
+		
+		for (int x = 0; x<binStringCopy.length()/bitNum;x++)
+		{
+			String currBinStringCopy = binStringCopy.substring(0,bitNum);
+			binStringCopy= binStringCopy.substring(bitNum);
+			finalOutput+=dict.get(Integer.parseInt(currBinStringCopy, 2));
 		}
 	}
 	
@@ -99,6 +110,28 @@ public class LZWDecoder {
 		output.print (finalOutput);
 		output.close();
 	}
+	
+//	class GFG {
+//		 
+//	    // Function to convert binary to decimal
+//	    private static int binaryToDecimal (String n)
+//	    {
+//	        String num = n;
+//	        int dec_value = 0;
+//	 
+//	        // Initializing base value to 1,
+//	        // i.e 2^0
+//	        int base = 1;
+//	 
+//	        int len = num.length();
+//	        for (int i = len - 1; i >= 0; i--) {
+//	            if (num.charAt(i) == '1')
+//	                dec_value += base;
+//	            base = base * 2;
+//	        }
+//	 
+//	        return dec_value;
+//	    }
 
 }
 
